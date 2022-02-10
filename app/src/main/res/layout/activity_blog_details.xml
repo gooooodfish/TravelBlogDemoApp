@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
         android:id="@+id/imageMain"
@@ -37,8 +45,8 @@
         android:shadowDy="1"
         android:shadowRadius="2"
         tools:text="G'day from Sydney"
-        tools:textColor="@android:color/white"
-        tools:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/textDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -55,7 +63,7 @@
         android:shadowDy="1"
         android:shadowRadius="2"
         tools:text="August 2, 2019"
-        tools:textColor="@android:color/white"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@id/imageMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -115,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         tools:text="(2697 views)"
-        tools:textColor="@color/grey_500"
+        android:textColor="@color/grey_500"
         app:layout_constraintBottom_toBottomOf="@id/ratingBar"
         app:layout_constraintStart_toEndOf="@id/textRating"
         app:layout_constraintTop_toTopOf="@id/ratingBar" />

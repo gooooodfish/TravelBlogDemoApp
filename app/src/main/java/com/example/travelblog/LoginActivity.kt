@@ -21,11 +21,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        if (preferences.isLoggedIn()) {
-//            startMainActivity()
-//            finish()
-//            return
-//        }
+        if (preferences.isLoggedIn()) {
+            startMainActivity()
+            finish()
+            return
+        }
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -1,5 +1,7 @@
 package com.example.travelblog
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.view.View
@@ -21,6 +23,16 @@ private const val AVATAR_URL = "https://bitbucket.org/dmytrodanylyk/travel-blog-
         "3436e16367c8ec2312a0644bebd2694d484eb047/avatars/avatar1.jpg"
 
 class BlogDetailsActivity : AppCompatActivity() {
+    companion object{
+        private const val EXTRAS_BLOG = "EXTRAS_BLOG"
+
+        fun start(activity: Activity, blog: Blog){
+            val intent = Intent(activity, BlogDetailsActivity::class.java)
+            intent.putExtra(EXTRAS_BLOG,blog)
+            activity.startActivity(intent)
+        }
+    }
+
     private lateinit var binding: ActivityBlogDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,45 +43,46 @@ class BlogDetailsActivity : AppCompatActivity() {
 
 
         binding.imageBack.setOnClickListener { finish() }
+        intent.extras?.getParcelable<Blog>(EXTRAS_BLOG)?.let { blog ->
+            showData(blog)
+        }
 
-        loadData()
     }
 
-    private fun loadData() {
-        BlogHttpClient.loadBlogArticles(
-            onSuccess = { list: List<Blog> ->
-                runOnUiThread { showData(list[0]) }
-            },
-            onError = {
-                runOnUiThread { showErrorSnackbar() }
-            }
-        )
-    }
-
-    private fun showErrorSnackbar() {
-        Snackbar.make(
-            binding.root,
-            "Error during loading blog articles",
-            Snackbar.LENGTH_INDEFINITE
-        ).run {
-            setActionTextColor(ContextCompat.getColor(context, R.color.pink_1))
-            setAction("Retry") {
-                loadData()
-                dismiss()
-            }
-        }.show()
-    }
+//    private fun loadData() {
+//        BlogHttpClient.loadBlogArticles(
+//            onSuccess = { list: List<Blog> ->
+//                runOnUiThread { showData(list[0]) }
+//            },
+//            onError = {
+//                runOnUiThread { showErrorSnackbar() }
+//            }
+//        )
+//    }
+//
+//    private fun showErrorSnackbar() {
+//        Snackbar.make(
+//            binding.rootView,
+//            "Error during loading blog articles",
+//            Snackbar.LENGTH_INDEFINITE
+//        ).run {
+//            setActionTextColor(ContextCompat.getColor(context, R.color.pink_1))
+//            setAction("Retry") {
+//                loadData()
+//                dismiss()
+//            }
+//        }.show()
+//    }
 
     private fun showData(blog: Blog) {
         binding.progressBar.visibility = View.GONE
-
         Glide.with(this)
-            .load(blog.image)
+            .load(blog.getImageUrl())
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.imageMain)
 
         Glide.with(this)
-            .load(blog.author.avatar)
+            .load(blog.author.getAvatarUrl())
             .transform(CircleCrop())
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.imageAvatar)

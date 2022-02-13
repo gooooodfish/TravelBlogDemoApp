@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 }
+
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 31
@@ -51,4 +54,13 @@ dependencies {
     // http
     implementation 'com.squareup.okhttp3:okhttp:4.2.1'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // database
+    def room_version = "2.4.1"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt("androidx.room:room-compiler:$room_version")
 }

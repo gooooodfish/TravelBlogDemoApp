@@ -3,6 +3,7 @@ package com.example.travelblog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -60,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButton.visibility = View.INVISIBLE
         binding.progressBar.visibility = View.VISIBLE
 
-        Handler().postDelayed(
+        Handler(Looper.getMainLooper()).postDelayed(
             {
                 startMainActivity()
                 finish()
